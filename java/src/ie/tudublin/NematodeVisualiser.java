@@ -6,15 +6,16 @@ import processing.core.PApplet;
 import processing.data.Table;
 import processing.data.TableRow;
 
-
+import ddf.minim.AudioBuffer;
+import ddf.minim.AudioInput;
+import ddf.minim.AudioPlayer;
+import ddf.minim.Minim;
 
 public class NematodeVisualiser extends PApplet
 {
+
 	ArrayList<Nematode> nematodes = new ArrayList<Nematode>();
-
 	public float border;
-
-	char mode = 0;
 
 	public void keyPressed()
 	{		
@@ -22,20 +23,7 @@ public class NematodeVisualiser extends PApplet
 		{
 
 		}
-		if (keyCode == RIGHT)
-		{
-			 
-		}		
-	}
-
-
-	public char getMode() {
-		return mode;
-	}
-
-
-	public void setMode(char mode) {
-		this.mode = mode;
+		
 	}
 
 
@@ -47,30 +35,28 @@ public class NematodeVisualiser extends PApplet
 	public void setup() 
 	{
 		colorMode(HSB);
-		background(0);
-		smooth();
+		background(100);
+		smooth();	
 		loadNematodes();			
 	}
 	
 
 	public void loadNematodes()
 	{
-		Table table = loadTable("nametodes.csv", "header");
-        for(TableRow r:table.rows())
+		Table table = loadTable("nematodes.csv", "header");
+		for(TableRow r:table.rows())
         {
-            Nematode s = new Nematode(r);
-            nematodes.add(s);
+            Nematode n = new Nematode(r);
+            nematodes.add(n);
         }
 	}
 
-	public void drawNematodes()
-	{
+	public void drawNematodes(){
 		for(Nematode n:nematodes)
 		{
 			n.render(this);
 		}
 	}
-
 
 	public void draw()
 	{	

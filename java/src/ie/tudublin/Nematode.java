@@ -1,17 +1,29 @@
 package ie.tudublin;
-
 import processing.core.PApplet;
 import processing.data.TableRow;
 
-public class Nematode  extends PApplet{
 
+public class Nematode {
     private String name;
     private int length;
     private boolean limbs;
     private String gender;
     private boolean eyes;
-
-
+    
+    
+    
+    @Override
+    public String toString() {
+        return "Nematode [eyes=" + eyes + ", gender=" + gender + ", length=" + length + ", limbs=" + limbs + ", name="
+                + name + "]";
+    }
+    public Nematode(String name, int length, boolean limbs, String gender, boolean eyes) {
+        this.name = name;
+        this.length = length;
+        this.limbs = limbs;
+        this.gender = gender;
+        this.eyes = eyes;
+    }
 
     public Nematode(TableRow tr)
     {
@@ -21,19 +33,7 @@ public class Nematode  extends PApplet{
             tr.getString("gender"), 
             tr.getInt("eyes") == 1);
     }
-    
-    public Nematode(String name, int length, boolean limbs, String gender, boolean eyes) {
-        this.name = name;
-        this.length = length;
-        this.limbs = limbs;
-        this.gender = gender;
-        this.eyes = eyes;
-    }
-    @Override
-    public String toString() {
-        return "Nematode [eyes=" + eyes + ", gender=" + gender + ", length=" + length + ", limbs=" + limbs + ", name="
-                + name + "]";
-    }
+
     public String getName() {
         return name;
     }
@@ -64,19 +64,18 @@ public class Nematode  extends PApplet{
     public void setEyes(boolean eyes) {
         this.eyes = eyes;
     }
-
+    
+    
     public void render(NematodeVisualiser pa){
 
-        float x = pa.height/2;
-        float y = pa.width/2;
-
         //Print the name of the nematode
+        float x = pa.height / 2;
+        float y = pa.width / 2;
+        
         pa.fill(255);
-        pa.stroke(255, 0, 0);
         pa.textSize(50);
         pa.textAlign(PApplet.CENTER, PApplet.CENTER);
-        pa.text(name, pa.width / 2, pa.height - (pa.border * 0.5f));
-
+        pa.text(name, x, 100);
         for(int i = 0; i < length ; i++)
         {
             pa.stroke(255);
@@ -84,25 +83,13 @@ public class Nematode  extends PApplet{
             pa.circle(x,y,50);
 
 
-                if(gender == "f")
-                {
-                    pa.stroke(255);
-                    pa.noFill();
-                    pa.circle(x,y, 30);
-                }
-
             if (isLimbs())
             {
                 pa.line(x - 25, y, x - 50, y);
                 pa.line(x + 25, y, x + 50, y);
             }
 
-            if(isEyes())
-            {
-
-            }
             y = y - 50;
-        }
-        }
+        }    
     }
- 
+}
